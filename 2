@@ -1,0 +1,88 @@
+class Student:
+    def __init__(self, name, age, city, address):
+        self.name = name
+        self.age = age
+        self.city = city
+        self.address = address
+
+
+students = [
+    Student("Lukas Stonys", 25, "Kursenai", "Gergzdeliai"),
+    Student("Petras Petrius", 19, "Panevezys", "Rabarbaru g. 57"),
+    Student("Rikis Pikis", 27, "Chicago", "789 Oak St"),
+]
+
+
+def search_by_keyword(keyword):
+    results = []
+    for student in students:
+        if keyword.lower() in student.name.lower():
+            results.append(student)
+    return results
+
+
+def search_by_category(category):
+    return sorted(students, key=lambda x: getattr(x, category.lower()))
+
+
+def sort_by_number():
+    return sorted(students, key=lambda x: x.age)
+
+
+def sort_alphabetically():
+    return sorted(students, key=lambda x: x.name)
+
+
+def main():
+    while True:
+        print("\n--- Student Management System ---")
+        print("1. Search by keyword")
+        print("2. Search by category")
+        print("3. Sort by number")
+        print("4. Sort alphabetically")
+        print("5. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            keyword = input("Enter a keyword to search: ")
+            results = search_by_keyword(keyword)
+            if results:
+                print("--- Search Results ---")
+                for student in results:
+                    print(f"Name: {student.name}, Age: {student.age}, City: {student.city}, Address: {student.address}")
+            else:
+                print("No results found.")
+
+        elif choice == "2":
+            category = input("Enter a category to search (age, name, city, address): ")
+            results = search_by_category(category)
+            if results:
+                print("--- Search Results ---")
+                for student in results:
+                    print(f"Name: {student.name}, Age: {student.age}, City: {student.city}, Address: {student.address}")
+            else:
+                print("No results found.")
+
+        elif choice == "3":
+            sorted_students = sort_by_number()
+            print("--- Sorted Students (by age) ---")
+            for student in sorted_students:
+                print(f"Name: {student.name}, Age: {student.age}, City: {student.city}, Address: {student.address}")
+
+        elif choice == "4":
+            sorted_students = sort_alphabetically()
+            print("--- Sorted Students (alphabetically) ---")
+            for student in sorted_students:
+                print(f"Name: {student.name}, Age: {student.age}, City: {student.city}, Address: {student.address}")
+
+        elif choice == "5":
+            print("Exiting the program...")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
